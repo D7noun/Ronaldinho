@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value='#{connectionBean.page}' />
+		<f:event type="preRenderView" listener='#{connectionBean.paginate}' />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Connections" />
+
+	<ui:define name="header">
+		Connection
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Connections
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="search" prependId="false">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="connectionBeanExampleConnectionName"
+							value="Connection Name:" />
+						<h:panelGroup>
+							<h:inputText id="connectionBeanExampleConnectionName"
+								value="#{connectionBean.example.connectionName}" />
+							<h:message for="connectionBeanExampleConnectionName"
+								styleClass="error" />
+						</h:panelGroup>
+						<h:outputText />
+						<h:outputLabel for="connectionBeanExampleIpAddress"
+							value="Ip Address:" />
+						<h:panelGroup>
+							<h:inputText id="connectionBeanExampleIpAddress"
+								value="#{connectionBean.example.ipAddress}" />
+							<h:message for="connectionBeanExampleIpAddress"
+								styleClass="error" />
+						</h:panelGroup>
+						<h:outputText />
+						<h:outputLabel for="connectionBeanExampleMacAddress"
+							value="Mac Address:" />
+						<h:panelGroup>
+							<h:inputText id="connectionBeanExampleMacAddress"
+								value="#{connectionBean.example.macAddress}" />
+							<h:message for="connectionBeanExampleMacAddress"
+								styleClass="error" />
+						</h:panelGroup>
+						<h:outputText />
+						<h:outputLabel for="connectionBeanExamplePortNumbers"
+							value="Port Numbers:" />
+						<h:panelGroup>
+							<h:inputText id="connectionBeanExamplePortNumbers"
+								value="#{connectionBean.example.portNumbers}" />
+							<h:message for="connectionBeanExamplePortNumbers"
+								styleClass="error" />
+						</h:panelGroup>
+						<h:outputText />
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action='#{connectionBean.search}'
+							styleClass="btn btn-primary" />
+						<h:commandLink value="Create New"
+							action='#{connectionBean.create}' styleClass="btn btn-primary" />
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+
+
+			<p:dataTable id="connectionBeanPageItems" styleClass="borderless"
+				tableStyleClass="data-table" value="#{connectionBean.pageItems}"
+				var="_item">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Connection Name" />
+					</f:facet>
+					<h:outputText id="_itemConnectionName"
+						value="#{_item.connectionName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Ip Address" />
+					</f:facet>
+					<h:outputText id="_itemIpAddress" value="#{_item.ipAddress}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Mac Address" />
+					</f:facet>
+					<h:outputText id="_itemMacAddress" value="#{_item.macAddress}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Port Numbers" />
+					</f:facet>
+					<h:outputText id="_itemPortNumbers" value="#{_item.portNumbers}"
+						title="#{_item.portNumbers}" styleClass="text-ellipsis" />
+				</p:column>
+
+			</p:dataTable>
+
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value='#{connectionBean}' />
+			</ui:include>
+
+
+			<h:commandLink id="excel-exporter" title="Export To Excel">
+				<p:graphicImage styleClass="excel-exporter-img"
+					name="excel-xls-icon.png" />
+				<p:dataExporter type="xls" target="connectionBeanPageItems"
+					fileName="connections" pageOnly="false" />
+			</h:commandLink>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

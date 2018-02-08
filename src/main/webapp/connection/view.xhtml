@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{connectionBean.id}'/>
+		<f:event type="preRenderView" listener='#{connectionBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Connection"/>
+
+	<ui:define name="header">
+		Connection
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Connection
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="connectionBeanConnectionConnectionName" value="Connection Name:"/>
+			<h:outputText id="connectionBeanConnectionConnectionName" value="#{connectionBean.connection.connectionName}"/>
+			<h:outputText/>
+			<h:outputLabel for="connectionBeanConnectionIpAddress" value="Ip Address:"/>
+			<h:outputText id="connectionBeanConnectionIpAddress" value="#{connectionBean.connection.ipAddress}"/>
+			<h:outputText/>
+			<h:outputLabel for="connectionBeanConnectionMacAddress" value="Mac Address:"/>
+			<h:outputText id="connectionBeanConnectionMacAddress" value="#{connectionBean.connection.macAddress}"/>
+			<h:outputText/>
+			<h:outputLabel for="connectionBeanConnectionPortNumbers" value="Port Numbers:"/>
+			<h:outputText id="connectionBeanConnectionPortNumbers" value="#{connectionBean.connection.portNumbers}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>
